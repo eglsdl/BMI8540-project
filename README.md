@@ -16,5 +16,7 @@ The pipeline is set up to run on HCC Swan server where the used software package
 
 # References:
 Brahma, S., Henikoff, S. The BAF chromatin remodeler synergizes with RNA polymerase II and transcription factors to evict nucleosomes. Nat Genet 56, 100–111 (2024). https://doi.org/10.1038/s41588-023-01603-8
+
 Grandi, F.C., Modi, H., Kampman, L. et al. Chromatin accessibility profiling by ATAC-seq. Nat Protoc 17, 1518–1552 (2022). https://doi.org/10.1038/s41596-022-00692-9
+
 Meers, M.P., Tenenbaum, D. & Henikoff, S. Peak calling by Sparse Enrichment Analysis for CUT&RUN chromatin profiling. Epigenetics & Chromatin 12, 42 (2019). https://doi.org/10.1186/s13072-019-0287-4
