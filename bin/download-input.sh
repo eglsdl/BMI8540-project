@@ -30,7 +30,7 @@ bowtie2_output_dir="./outputs/bowtie2"
 mkdir ${fasta_input_dir} ${cutadapt_output_dir} ${bowtie2_output_dir}
 
 # Add SRR IDs of my files of interest into a list and loop thorugh
-srr_ids=("SRR23310241", "SRR23310242")
+srr_ids=("SRR23310241" "SRR23310242")
 for srr in ${srr_ids[@]}; do
 
     # Download input files using SRA-toolkit
@@ -43,8 +43,8 @@ for srr in ${srr_ids[@]}; do
     echo "Trimming adapters for ${srr}..."
     fq1="${fasta_input_dir}/${srr}_1.fastq"
     fq2="${fasta_input_dir}/${srr}_2.fastq"
-    trim1="${cutadapt_output_dir}/{srr}_1.trimmed.fastq"
-    trim2="${cutadapt_output_dir}/{srr}_2.trimmed.fastq"
+    trim1="${cutadapt_output_dir}/${srr}_1.trimmed.fastq"
+    trim2="${cutadapt_output_dir}/${srr}_2.trimmed.fastq"
     cutadapt -j 8 -m 20 --nextseq-trim 20 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
     -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -Z -o ${trim1} -p ${trim2} ${fq1} ${fq2} \
     >& ${cutadapt_output_dir}/${srr}.cutadapt
@@ -62,7 +62,7 @@ for srr in ${srr_ids[@]}; do
 
     # Map reads to Drosophila Melanogaster genome using Bowtie2
     echo "Mapping ${srr} to Drosophila Melanogaster..."
-    sam_dors="${bowtie2_output_dir}/${srr}.dros.sam"
+    sam_dros="${bowtie2_output_dir}/${srr}.dros.sam"
     out_dros="${bowtie2_output_dir}/${srr}.dros.bowtie2.out"
     bowtie2 --very-sensitive-local --soft-clipped-unmapped-tlen \
     --no-unal --no-mixed --no-discordant --dovetail --phred33 -I 10 -X 1000 \

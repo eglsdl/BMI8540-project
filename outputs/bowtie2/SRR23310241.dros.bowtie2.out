@@ -1,0 +1,22 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_MEASUREMENT = "lt_LT.UTF-8",
+	LC_PAPER = "lt_LT.UTF-8",
+	LC_MONETARY = "lt_LT.UTF-8",
+	LC_NAME = "lt_LT.UTF-8",
+	LC_ADDRESS = "lt_LT.UTF-8",
+	LC_NUMERIC = "lt_LT.UTF-8",
+	LC_TELEPHONE = "lt_LT.UTF-8",
+	LC_IDENTIFICATION = "lt_LT.UTF-8",
+	LC_TIME = "lt_LT.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+6517213 reads; of these:
+  6517213 (100.00%) were paired; of these:
+    6479301 (99.42%) aligned concordantly 0 times
+    7365 (0.11%) aligned concordantly exactly 1 time
+    30547 (0.47%) aligned concordantly >1 times
+0.58% overall alignment rate
