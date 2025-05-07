@@ -1,0 +1,3 @@
+[submodule "external/SEACR"]
+	path = external/SEACR
+	url = https://github.com/FredHutch/SEACR.git
