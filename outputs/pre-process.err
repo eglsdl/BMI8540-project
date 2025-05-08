@@ -1,0 +1,12 @@
+Static data resources for bioinformatics 1.0.
+     Contact the Bioinformatics Core Research Facility (bcrf-support@unl.edu)
+for questions/support. 
+     NOTE: use $BLAST_V4 for access to blast databases when using NCBI blast <=
+2.9 
+     NOTE 2: $BLAST_V4 databases will not be updated going forward.
+spots read      : 6,676,989
+reads read      : 13,353,978
+reads written   : 13,353,978
+spots read      : 9,170,828
+reads read      : 18,341,656
+reads written   : 18,341,656
