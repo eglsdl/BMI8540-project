@@ -21,13 +21,13 @@ echo "Job started at:"
 date +"%Y-%m-%d %H:%M:%S"
 
 # Loading required tools
-module load SRAtoolkit/2.11
-module load cutadapt
-module load bowtie/2.4
-module load biodata
 module load bedtools
-module load ucsc-bedgraphtobigwig/455
+module load biodata
+module load bowtie/2.4
+module load cutadapt
 module load samtools
+module load SRAtoolkit/2.11
+module load ucsc-bedgraphtobigwig/455
 
 # Defining directories to store input and output files and create them:
 fasta_input_dir="./inputs/fasta"
@@ -102,12 +102,14 @@ for srr in ${srr_ids[@]}; do
     echo "Mapped read count: ${count}."
     echo "Done."
 
-    # Extract signal intensity information from the samples and
-    # normalise it to read depth.
+    # Extracting signal intensity information from the samples and
+    # normalising it to read depth. The bedGraph file is then converted
+    # to a bigWig file.
     echo "Generating bedGraph and bigWig files for ${srr}..."
     bg="${bowtie2_output_dir}/${srr}.bg"
     bw="${bowtie2_output_dir}/${srr}.bw"
-    bedtools genomecov -bg -scale ${scale_factor} -i ${bed_lim} -g ${chr_length} > ${bg}
+    bedtools genomecov -bg -scale ${scale_factor} -i ${bed_lim} \
+    -g ${chr_length} > ${bg}
     bedGraphToBigWig ${bg} ${chr_length} ${bw}
     echo "Done." 
 done
