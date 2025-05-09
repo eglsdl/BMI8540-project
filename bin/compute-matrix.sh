@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
 #SBATCH --job-name=matrix
-#SBATCH --error=./outputs/matrix.err
-#SBATCH --output=./outputs/matrix_log.out
+#SBATCH --error=./outputs/logs/matrix.err
+#SBATCH --error=./outputs/logs/matrix_log.out
 
 # This script uses a bed file with regions of interest and sample signal 
 # intensity bigWig files to generate a signal intensity matrix for each

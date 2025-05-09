@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
 #SBATCH --job-name=seacr
-#SBATCH --error=./outputs/seacr.err
-#SBATCH --output=./outputs/seacr_log.out
+#SBATCH --error=./outputs/logs/seacr.err
+#SBATCH --error=./outputs/logs/seacr_log.out
 
 # This script is used to call peaks in the input intensity file
 # to obtain bed file that lists regions of the genome that show
@@ -21,8 +21,8 @@ module load R/4.3
 
 # Describing input file as well as path and prefix for output
 # file.
-input_file="./outputs/processed_data/SRR23310242.bg"
-output_file="./outputs/SRR23310242.peaks"
+in_file="./outputs/processed_data/SRR23310242.bg"
+out_file="./outputs/SRR23310242.peaks"
 
 # Calling peaks using SEACR. Arguments used:
 # 0.01 - threshold of what fraction of peaks should be kept; IgG 
@@ -31,4 +31,4 @@ output_file="./outputs/SRR23310242.peaks"
 #       before htrasholding. In this case using option none.
 # stringent - take a more stringent approach in peak calling;
 #             results in less peaks with smaller width.
-./external/SEACR/SEACR_1.3.sh ${input_file} 0.01 non stringent ${output_file}
+./external/SEACR/SEACR_1.3.sh ${in_file} 0.01 non stringent ${out_file}

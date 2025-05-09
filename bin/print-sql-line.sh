@@ -33,23 +33,23 @@ if [[ $# -eq 3 ]]; then
     plot_file=$3
     total_reads=$(wc -l inputs/fasta/${srr}_1.fastq | awk '{print $1/4}')
     trimmed_reads=$(awk 'NR==1 {print $1}' \
-                  ./outputs/processed_data/${srr}.bowtie2.out)
+	    ./outputs/processed_data/${srr}.bowtie2.out)
     aligned_reads=$(awk 'NR==4 || NR==5 {sum += $1} END {print sum}' \
-                  ./outputs/processed_data/${srr}.bowtie2.out )
+	    ./outputs/processed_data/${srr}.bowtie2.out )
     aligned_prc=$(awk 'NR==6 {print $1}' \
-                ./outputs/processed_data/${srr}.bowtie2.out )
+	    ./outputs/processed_data/${srr}.bowtie2.out )
     date_added=$(date +"%Y-%m-%d")
     echo "INSERT INTO my_heatmap_records VALUES(\"${srr}\"," \
-         "${total_reads}, ${trimmed_reads}, ${aligned_reads}," \
-         "\"${aligned_prc}\", \"${region_file}\", \"${plot_file}\"," \
-         "\"${date_added}\");"
+	    "${total_reads}, ${trimmed_reads}, ${aligned_reads}," \
+	    "\"${aligned_prc}\", \"${region_file}\", \"${plot_file}\"," \
+	    "\"${date_added}\");"
     exit 0
 fi
 
 # Otherwise, throw error that arguments provided are not correct.
 if [[ ( $# -ne 1 || $1 != "new") && $# -ne 3 ]]; then
     echo "ERROR: Wrong arguments provided. To start new table use one" \
-         "argument \"new\". To add a new line to table, provide 3" \
-         "arguments: SRR ID, region BED file name and plot file name."
+	    "argument \"new\". To add a new line to table, provide 3" \
+	    "arguments: SRR ID, region BED file name and plot file name."
     exit 1
 fi
