@@ -15,9 +15,10 @@ if [[ $# -eq 1 && $1 == "new" ]]; then
     echo "    trimmed_reads INT,"
     echo "    aligned_reads INT,"
     echo "    alignment_rate VARCHAR(6),"
-    echo "    peak_fn VARCHAR(60),"
-    echo "    plot_fn VARCHAR(60),"
-    echo "    date VARCHAR(10)"
+    echo "    peak_fn VARCHAR(100),"
+    echo "    plot_fn VARCHAR(100),"
+    echo "    date VARCHAR(10),"
+    echo "    PRIMARY KEY(srr_id)"
     echo ");"
     exit 0
 fi
