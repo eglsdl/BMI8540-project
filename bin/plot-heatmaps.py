@@ -2,8 +2,8 @@
 
 # This program reads a signal intensity matrix file (generated
 # with deeptools) and plots a centered heatmap (also known as a
-# tornado plot) for it. Arguments are input file (has to be an 
-# unzipped matrix file in tab format) and output file name (png).
+# tornado plot). Arguments are input file (has to be an unzipped
+# matrix file in tab format) and output file name (png).
 
 # Importing relevant packages
 import sys
@@ -28,9 +28,12 @@ if (len(sys.argv) > 3):
 matrix_fn = sys.argv[1]
 output_fn = sys.argv[2]
 
-# Read input matrix file into a pandas data frame.
-df = pd.read_csv(matrix_fn, sep='\t', comment='#', header=None, skiprows=3)
-matrix = df.values
+# Read input matrix file into a pandas data frame. Option
+# skiprows is used to avoid rows with metadata and might need
+# to be adjusted for a specific sample.
+matrix = np.loadtxt(matrix_fn, delimiter='\t', skiprows=3)
+#df = pd.read_csv(matrix_fn, sep='\t', comment='#', header=None, skiprows=3)
+#matrix = df.values
 
 # Through trial and error I have noticed that the data has some
 # outliers that affect the scale of the heatmap. In order to
@@ -53,7 +56,8 @@ plt.figure(figsize=(8, 10))
 plt.imshow(sorted_matrix, aspect='auto', cmap='RdBu_r',
            interpolation='none', vmin=low, vmax=high)
 plt.colorbar(label='Signal')
-plt.xlabel('Position bins')
+plt.xticks([0, 100, 200], ['-1000', '0', '1000'])
+plt.xlabel('Distance from RNA Pol II peak center, kb')
 plt.ylabel('Regions')
 plt.title('Heatmap')
 plt.tight_layout()

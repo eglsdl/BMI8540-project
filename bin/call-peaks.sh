@@ -22,7 +22,7 @@ module load R/4.3
 
 # Describing input file as well as path and prefix for output
 # file.
-input_file="./outputs/mapped_data/SRR23310242.bg"
+input_file="./outputs/processed_data/SRR23310242.bg"
 output_file="./outputs/SRR23310242.peaks"
 
 # Calling peaks using SEACR. Arguments used:

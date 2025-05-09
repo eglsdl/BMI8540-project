@@ -23,8 +23,8 @@ module load deeptools
 # show signal intensity in a sample spaning 1000 base pairs before and
 # after the center of each region of interest, in 10 base pair intervals.
 regions="./outputs/SRR23310242.peaks.stringent.bed" 
-bw_files=("./outputs/mapped_data/SRR23310241.bw"
-          "./outputs/mapped_data/SRR23310242.bw")
+bw_files=("./outputs/processed_data/SRR23310241.bw"
+          "./outputs/processed_data/SRR23310242.bw")
 for bw in ${bw_files[@]}; do
     out_name=$(echo ${bw} | sed "s/bw/matrix.tab/")
     computeMatrix reference-point -S ${bw} -R ${regions} -a 1000 \

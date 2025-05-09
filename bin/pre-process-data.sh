@@ -31,16 +31,19 @@ module load ucsc-bedgraphtobigwig/455
 
 # Defining directories to store input and output files and create them:
 fasta_input_dir="./inputs/fasta"
-cutadapt_output_dir="./outputs/cutadapt"
-bowtie2_output_dir="./outputs/mapped_data"
-mkdir -p ${fasta_input_dir} ${cutadapt_output_dir} ${bowtie2_output_dir}
+output_dir="./outputs/processed_data"
+mkdir -p ${fasta_input_dir} ${output_dir} ${output_dir}
 
 # For mapping, pre-built Mus Musculus UCSC genome (mm10) will be used. It
 # is stored on HCC Swan biodata module and can be accessed using variable
 # $BOWTIE2_MUS_MUSCULUS_UCSC_MM10. Chromosome length file and genome length 
-# can be obtained with code lines bellow. Some of them are commented out 
-# because it's enough to generate the "chr_length.tab" file once using awk
-# loop to count base pairs (bp) in each chromosome.
+# can be obtained with code lines bellow. To  generate the "chr_length.tab"
+# file I am using awk to loop through lines and count base pairs (bp) in
+# each chromosome:
+# -- If a line starts with symbol ">" it's a new chomosome - name of previous
+# chromosome and it's bp count is printed; name of the new chromosome is saved;
+# -- If a line does not start with ">", it's length is added to a counter (seqlen);
+# -- Afterwards, the information is sorted based on 1st column (chromosome name). 
 chr_length="./inputs/chr_length.tab"
 bowtie2-inspect $BOWTIE2_MUS_MUSCULUS_UCSC_MM10 | awk '/^>/ {if (chr != "") \
 print chr "\t" seqlen; chr=substr($0,2); seqlen=0; next} {seqlen += length($0)} \
@@ -61,30 +64,37 @@ for srr in ${srr_ids[@]}; do
     fasterq-dump --split-files ${srr} -O ${fasta_input_dir} --threads 4
     echo "Done."
 
-    # Trimming adapters using cutadapt
+    # Trimming adapters using cutadapt. Settings were mirrored from
+    # instructions from GEO (GSM7019046 & GSM7019045)
     echo "Trimming adapters for ${srr}..."
     fq1="${fasta_input_dir}/${srr}_1.fastq"
     fq2="${fasta_input_dir}/${srr}_2.fastq"
-    trim1="${cutadapt_output_dir}/${srr}_1.trimmed.fastq"
-    trim2="${cutadapt_output_dir}/${srr}_2.trimmed.fastq"
+    trim1="${output_dir}/${srr}_1.trimmed.fastq"
+    trim2="${output_dir}/${srr}_2.trimmed.fastq"
     cutadapt -j 4 -m 20 --nextseq-trim 20 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
     -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -Z -o ${trim1} -p ${trim2} ${fq1} ${fq2} \
-    >& ${cutadapt_output_dir}/${srr}.cutadapt
+    >& ${output_dir}/${srr}.cutadapt
     echo "Done."
 
-    # Mapping reads to Mus Musculus (mm10) genome using Bowtie2
+    # Mapping reads to Mus Musculus (mm10) genome using Bowtie2. Settings
+    # were mirrored from instructions from GEO (GSM7019046 & GSM7019045)
     echo "Mapping ${srr} to mm10..."
-    sam="${bowtie2_output_dir}/${srr}.sam"
-    out="${bowtie2_output_dir}/${srr}.bowtie2.out"
+    sam="${output_dir}/${srr}.sam"
+    out="${output_dir}/${srr}.bowtie2.out"
     bowtie2 --very-sensitive-local --soft-clipped-unmapped-tlen \
     --no-mixed --no-discordant --dovetail -q --phred33 -I 10 -X 1000 \
     --threads 4 -x $BOWTIE2_MUS_MUSCULUS_UCSC_MM10 -1 ${trim1} -2 ${trim2} \
     > ${sam} 2> ${out}
     echo "Done."
 
-    # Extracting the properly paired alignments into a bed file
+    # Extracting the properly paired alignments into a bed file. To do
+    # that file is first converted into bedpe format (both paired end (pe)
+    # reads are output in the same line). Then, using cut, chromosome
+    # name, start point of one pe read, end point of other pe read and
+    # gene information is output. The file is sorted and fragment length
+    # information is added to the 5th column using awk.
     echo "Converting mapped ${srr} sam file to bed..."
-    bed="${bowtie2_output_dir}/${srr}.bed"
+    bed="${output_dir}/${srr}.bed"
     samtools view -@ 4 -b -h ${sam} | bedtools bamtobed -bedpe -i stdin | \
     cut -f1,2,6,7 | sort -k1,1 -k2,2n -k3,3n | awk -v OFS='\t' \
     '{len = $3 - $2 ; print $0, len }' > ${bed}
@@ -94,7 +104,7 @@ for srr in ${srr_ids[@]}; do
     # scale factor for read depth normalisation by dividing total
     # bp count in mm10 genome by count of mapped reads.
     echo "Generating scale factor for ${srr}..."
-    bed_lim="${bowtie2_output_dir}/${srr}.10-1000.bed"
+    bed_lim="${output_dir}/${srr}.10-1000.bed"
     cat ${bed} | awk '{if ($5 >= 10 && $5 <= 1000) print }' > ${bed_lim}
     count=$(cat ${bed_lim} | awk '{sum += $5} END {print sum}')
     scale_factor=$(echo "${genome_length}/${count}" | bc -l)
@@ -106,8 +116,8 @@ for srr in ${srr_ids[@]}; do
     # normalising it to read depth. The bedGraph file is then converted
     # to a bigWig file.
     echo "Generating bedGraph and bigWig files for ${srr}..."
-    bg="${bowtie2_output_dir}/${srr}.bg"
-    bw="${bowtie2_output_dir}/${srr}.bw"
+    bg="${output_dir}/${srr}.bg"
+    bw="${output_dir}/${srr}.bw"
     bedtools genomecov -bg -scale ${scale_factor} -i ${bed_lim} \
     -g ${chr_length} > ${bg}
     bedGraphToBigWig ${bg} ${chr_length} ${bw}
