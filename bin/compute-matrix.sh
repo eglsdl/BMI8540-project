@@ -5,9 +5,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
 #SBATCH --job-name=matrix
-#SBATCH --chdir=/work/brahmalab/eglesidl/BMI8540-project
-#SBATCH --error=/work/brahmalab/eglesidl/BMI8540-project/outputs/matrix.err
-#SBATCH --output=/work/brahmalab/eglesidl/BMI8540-project/outputs/matrix_log.out
+#SBATCH --error=./outputs/matrix.err
+#SBATCH --output=./outputs/matrix_log.out
 
 # This script uses a bed file with regions of interest and sample signal 
 # intensity bigWig files to generate a signal intensity matrix for each

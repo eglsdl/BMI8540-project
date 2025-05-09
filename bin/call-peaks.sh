@@ -5,9 +5,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
 #SBATCH --job-name=seacr
-#SBATCH --chdir=/work/brahmalab/eglesidl/BMI8540-project
-#SBATCH --error=/work/brahmalab/eglesidl/BMI8540-project/outputs/seacr.err
-#SBATCH --output=/work/brahmalab/eglesidl/BMI8540-project/outputs/seacr_log.out
+#SBATCH --error=./outputs/seacr.err
+#SBATCH --output=./outputs/seacr_log.out
 
 # This script is used to call peaks in the input intensity file
 # to obtain bed file that lists regions of the genome that show

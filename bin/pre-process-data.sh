@@ -4,9 +4,8 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=10gb
 #SBATCH --job-name=dwn-prc
-#SBATCH --chdir=/work/brahmalab/eglesidl/BMI8540-project
-#SBATCH --error=/work/brahmalab/eglesidl/BMI8540-project/outputs/pre-process.err
-#SBATCH --output=/work/brahmalab/eglesidl/BMI8540-project/outputs/pre-process_log.out
+#SBATCH --error=./outputs/pre-process.err
+#SBATCH --output=./outputs/pre-process_log.out
 
 # This script is used to download data of interest, trim adapters,
 # map it to Mus Musculus (mm10) genome, convert mapping results to

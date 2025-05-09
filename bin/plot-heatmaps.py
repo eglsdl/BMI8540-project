@@ -7,7 +7,6 @@
 
 # Importing relevant packages
 import sys
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -32,8 +31,6 @@ output_fn = sys.argv[2]
 # skiprows is used to avoid rows with metadata and might need
 # to be adjusted for a specific sample.
 matrix = np.loadtxt(matrix_fn, delimiter='\t', skiprows=3)
-#df = pd.read_csv(matrix_fn, sep='\t', comment='#', header=None, skiprows=3)
-#matrix = df.values
 
 # Through trial and error I have noticed that the data has some
 # outliers that affect the scale of the heatmap. In order to

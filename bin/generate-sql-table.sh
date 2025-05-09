@@ -5,9 +5,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
 #SBATCH --job-name=sql
-#SBATCH --chdir=/work/brahmalab/eglesidl/BMI8540-project
-#SBATCH --error=/work/brahmalab/eglesidl/BMI8540-project/outputs/sql.err
-#SBATCH --output=/work/brahmalab/eglesidl/BMI8540-project/outputs/sql_log.out
+#SBATCH --error=./outputs/sql.err
+#SBATCH --output=./outputs/sql_log.out
 
 # This script calls bash script print-sql-line.sh to generate a SQL
 # script for each processed sample. The SQL script can later be used
