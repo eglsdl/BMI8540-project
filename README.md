@@ -4,7 +4,7 @@ BMI-8540 course project by Eglė Šidlauskaitė, PhD student at UNMC IGPBS BISB
 University of Nebraska Omaha, Spring semester, 2025
 
 # Abstract and Purpose
-My project analyses two samples1 of mouse embryonic stem cells, one of which has undergone an 8 hour Flavopiridol (RNA Polymerase II inhibitor) treatment. The CUTAC-seq2 experiment is targeting RNA Pol II Serine 5 Phosphorylation in these samples which is a marker of transcription initiation and pausing. The project uses this data to visualize open chromatin peak enrichment by generating a heatmap for each sample. **My research question is: how does RNA Pol II inhibition affect chromatin accessibility surrounding RNA Pol II S5P?**
+My project analyses two samples [1] of mouse embryonic stem cells, one of which has undergone an 8 hour Flavopiridol (RNA Polymerase II inhibitor) treatment. The CUTAC-seq [2] experiment is targeting RNA Pol II Serine 5 Phosphorylation in these samples which is a marker of transcription initiation and pausing. The project uses this data to visualize open chromatin peak enrichment by generating a heatmap for each sample. **My research question is: how does RNA Pol II inhibition affect chromatin accessibility surrounding RNA Pol II S5P?**
 
 <img src="outputs/plots/SRR23310242.png" alt="Before treatment" width="300"> <img src="outputs/plots/SRR23310241.png" alt="After treatment" width="300">
 
@@ -25,11 +25,11 @@ In conclusion, from this short analysis we can see that RNA Pol II inhibition de
 
 
 # Background
-Chromatin is formed by tightly wrapping the DNA around nucleosomes which causes these parts of the sequence to be transcriptionally inactive. To obtain information about open chromatin, ATAC-seq3 method is used - DNA is fragmented using Tn5 transposase which cuts up accessible parts of the DNA and inserts sequencing adapters. Therefore, after sequencing, regions of open chromatin regions result in small DNA fragments. CUTAC-seq is a similar method that fragments open chromatin surrounding a specific protein target, e.g. RNA Polymerase II, a transcription factor of interest, etc. Using open chromatin peak enrichment analysis we can analyse transcriptional events, identify transcriptionally active regions and observe change in chromatin accessibility over different treatments.
+Chromatin is formed by tightly wrapping the DNA around nucleosomes which causes these parts of the sequence to be transcriptionally inactive. To obtain information about open chromatin, ATAC-seq [3] method is used - DNA is fragmented using Tn5 transposase which cuts up accessible parts of the DNA and inserts sequencing adapters. Therefore, after sequencing, regions of open chromatin regions result in small DNA fragments. CUTAC-seq is a similar method that fragments open chromatin surrounding a specific protein target, e.g. RNA Polymerase II, a transcription factor of interest, etc. Using open chromatin peak enrichment analysis we can analyse transcriptional events, identify transcriptionally active regions and observe change in chromatin accessibility over different treatments.
 
 The project uses CUTAC-seq data to visualize open chromatin peak enrichment in the form of a heatmap. The mechanism behind gene expression related to chromatin accessibility is not yet clear, therefore analysing how chromatin accessibility changes over different conditions is a relevant trend in research. An automated pipeline that allows to visualize and compare DNA accessibility in specific regions is useful to studying this question.
 
-Although there are tools readily available to generate these heatmaps (such as the deeptools package), they are usually stand alone tools. This pipeline allows users to automatically download and process multiple files by simply entering their SRR IDs in relevant scripts. Furthermore, using Python offers users more flexibility for customizing the heatmap by directly editing the code, which enables adjustments beyond what existing tools allow. Finally, I believe that having a database that stores information about each processed sample and the generated visual could be a good long-term solution to keep data tidy when working with a lot of datasets.
+Although there are tools readily available to generate these heatmaps (such as the deeptools [4] package), they are usually stand alone tools. This pipeline allows users to automatically download and process multiple files by simply entering their SRR IDs in relevant scripts. Furthermore, using Python offers users more flexibility for customizing the heatmap by directly editing the code, which enables adjustments beyond what existing tools allow. Finally, I believe that having a database that stores information about each processed sample and the generated visual could be a good long-term solution to keep data tidy when working with a lot of datasets.
 
 # Objectives and outcomes
 1) Using bash, download CUTAC-seq data and **pre-process** it for further analysis (trim adapters, map to a reference genome, read-length normalise samples, convert to bigWig format to store signal strength). Finally, generate a signal strength matrix (showing signal intensity over small intervals of selected regions of interest) that can be used for heatmap plotting.
@@ -38,7 +38,7 @@ Although there are tools readily available to generate these heatmaps (such as t
 
 3) Using bash, generate an SQL script that can be used to create a new database and **store information** about analysis of each sample in it.
 
-# Project Components
+# Project components
 Reproducible bash shell scripts:
 
 - /bin/pre-process-data.sh
@@ -56,28 +56,29 @@ A working database implementation:
 
 Note: the repository does not include all intermediate files produced by these scripts as some of them exceed GitHub size limits. However, all files can be reproduced using the provided scripts. Also, for missing files, log files and error files generated while running the pipeline are submitted.
 
-# Run information
-The scripts are written to be used in Holland Computing Center (HCC), Swan server and are run using Slurm Workload Manager. 
+# System requirements
+The scripts are written to be used in Holland Computing Center (HCC), Swan server and are run using Slurm Workload Manager [5]. 
 
 Software requirements:
-- bedtools (v2.27)
-- R (v4.3)
-- deeptools (v3.5)
-- bowtie (v2.4)
-- cutadapt (v2.9)
-- samtools (v1.20)
-- SRA toolkit (v2.11)
-- UCSC utilities (bedGraphToBigWig) (v455)
+- bedtools (v2.27) [6]
+- R (v4.3) [7]
+- deeptools (v3.5) [4]
+- bowtie (v2.4) [8]
+- cutadapt (v2.9) [9]
+- samtools (v1.20) [10]
+- SRA toolkit (v2.11) [11]
+- UCSC utilities (bedGraphToBigWig) (v455) [12]
 
 Python package requirements:
-- numpy (v1.22.4)
-- matplotlib (v3.5.3)
+- numpy (v1.22.4) [13]
+- matplotlib (v3.5.3) [14]
 
 Software package mounted to the GitHub repository:
-- SEACR (v1.3)
+- SEACR (v1.3) [15]
 
 The code can be easily adapted to run on a system without a workload manager and directly pre-installed software. It is enough to ensure that required software is in $PATH and to remove “module load” statements. Also, in such cases, Mus Musculus genome should be built and provided locally.
 
+# Run instructions
 Using Slurm Workload Manager in HCC Swan server run:
 
 ```git clone https://github.com/eglsdl/BMI8540-project.git
@@ -115,7 +116,7 @@ Function of each script is documented in great detail in the script comments. Be
 Project is stored under a MIT License.
 
 # Data Provenance
-Project uses FASTQ data from a CUTAC-seq experiment targeting RNA Polymerase II Serine 5 Phosphorylation on mouse embryonic stem cells. No data usage restrictions were found. Samples and their IDs:
+Project uses FASTQ data [1] from a CUTAC-seq experiment targeting RNA Polymerase II Serine 5 Phosphorylation on mouse embryonic stem cells. No data usage restrictions were found. Samples and their IDs:
 - SRR23310242 (GSM7019045) - no treatment.
 - SRR23310241 (GSM7019046) - 8 hour Flavopiridol (RNA Pol II inhibitor) treatment.
 
