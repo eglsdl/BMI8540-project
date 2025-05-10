@@ -6,7 +6,7 @@
 #SBATCH --mem=10gb
 #SBATCH --job-name=plot
 #SBATCH --error=./outputs/logs/plot.err
-#SBATCH --error=./outputs/logs/plot_log.out
+#SBATCH --output=./outputs/logs/plot_log.out
 
 # This script calls python script plot-heatmaps.py to generate a plot
 # for each sample of interest. Script takes matrix file and output

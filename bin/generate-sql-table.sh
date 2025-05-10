@@ -6,7 +6,7 @@
 #SBATCH --mem=10gb
 #SBATCH --job-name=sql
 #SBATCH --error=./outputs/logs/sql.err
-#SBATCH --error=./outputs/logs/sql_log.out
+#SBATCH --output=./outputs/logs/sql_log.out
 
 # This script calls bash script print-sql-line.sh to generate a SQL
 # script for each processed sample. The SQL script can later be used

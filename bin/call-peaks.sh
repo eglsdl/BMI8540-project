@@ -6,7 +6,7 @@
 #SBATCH --mem=10gb
 #SBATCH --job-name=seacr
 #SBATCH --error=./outputs/logs/seacr.err
-#SBATCH --error=./outputs/logs/seacr_log.out
+#SBATCH --output=./outputs/logs/seacr_log.out
 
 # This script is used to call peaks in the input intensity file
 # to obtain bed file that lists regions of the genome that show

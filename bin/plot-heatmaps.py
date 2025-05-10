@@ -32,13 +32,6 @@ output_fn = sys.argv[2]
 # to be adjusted for a specific sample.
 matrix = np.loadtxt(matrix_fn, delimiter='\t', skiprows=3)
 
-# Through trial and error I have noticed that the data has some
-# outliers that affect the scale of the heatmap. In order to
-# avoid this issue, I chose to remove 2% of lowest and highest
-# values from my plot by setting vmin and vmax values.
-low = np.percentile(matrix, 2)
-high = np.percentile(matrix, 98)
-
 # In order to observe the nice tornado shape in the heatmap, the
 # regions of interest need to be sorted based on average signal
 # strength. To do that, I determine mean signal value in each
@@ -48,10 +41,11 @@ center_means = matrix.mean(axis=1)
 sorted_idx = np.argsort(center_means)[::-1]
 sorted_matrix = matrix[sorted_idx, :]
 
-# Plotting the figue
+# Plotting the figure. Limits are set on the colour scale to
+# be able to compare plots of different samples.
 plt.figure(figsize=(8, 10))
 plt.imshow(sorted_matrix, aspect='auto', cmap='RdBu_r',
-           interpolation='none', vmin=low, vmax=high)
+           interpolation='none', vmin=0, vmax=100)
 plt.colorbar(label='Signal')
 plt.xticks([0, 100, 200], ['-1000', '0', '1000'])
 plt.xlabel('Distance from RNA Pol II peak center, kb')

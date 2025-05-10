@@ -6,7 +6,7 @@
 #SBATCH --mem=10gb
 #SBATCH --job-name=dwn-prc
 #SBATCH --error=./outputs/logs/pre-process.err
-#SBATCH --error=./outputs/logs/pre-process_log.out
+#SBATCH --output=./outputs/logs/pre-process_log.out
 
 # This script is used to download data of interest, trim adapters,
 # map it to Mus Musculus (mm10) genome, convert mapping results to

@@ -1,11 +1,11 @@
 Calling enriched regions without control file
 Proceeding without normalization of control to experimental bedgraph
 Using stringent threshold
-Creating experimental AUC file: Fri May  9 11:38:01 CDT 2025
-Calculating optimal AUC threshold: Fri May  9 11:38:15 CDT 2025
-Using user-provided threshold: Fri May  9 11:38:15 CDT 2025
-Creating thresholded feature file: Fri May  9 11:38:18 CDT 2025
+Creating experimental AUC file: Fri May  9 21:46:48 CDT 2025
+Calculating optimal AUC threshold: Fri May  9 21:49:10 CDT 2025
+Using user-provided threshold: Fri May  9 21:49:10 CDT 2025
+Creating thresholded feature file: Fri May  9 21:49:16 CDT 2025
 Empirical false discovery rate = 0.01
-Merging nearby features and eliminating control-enriched features: Fri May  9 11:38:19 CDT 2025
-Removing temporary files: Fri May  9 11:38:19 CDT 2025
-Done: Fri May  9 11:38:19 CDT 2025
+Merging nearby features and eliminating control-enriched features: Fri May  9 21:49:17 CDT 2025
+Removing temporary files: Fri May  9 21:49:17 CDT 2025
+Done: Fri May  9 21:49:19 CDT 2025

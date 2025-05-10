@@ -1,7 +1,7 @@
 This is cutadapt 2.9 with Python 3.7.6
 Command line parameters: -j 4 -m 20 --nextseq-trim 20 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -Z -o ./outputs/processed_data/SRR23310242_1.trimmed.fastq -p ./outputs/processed_data/SRR23310242_2.trimmed.fastq ./inputs/fasta/SRR23310242_1.fastq ./inputs/fasta/SRR23310242_2.fastq
 Processing reads on 4 cores in paired-end mode ...
-Finished in 41.23 s (4 us/read; 13.34 M reads/minute).
+Finished in 37.95 s (4 us/read; 14.50 M reads/minute).
 
 === Summary ===
 
